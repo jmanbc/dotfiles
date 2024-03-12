@@ -11,10 +11,14 @@ compinit -i
 eval "$(zoxide init zsh)"
 
 export BAT_THEME="Nord"
-export TERMINAL=/usr/bin/gnome-terminal
+export TERMINAL=/usr/bin/kitty
+export TERM=xterm-256color
 path=('/home/jmboles/.config/emacs/bin' $path)
+path=('/home/jmboles/.local/bin' $path)
 export PATH
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=true
+export EDITOR=nvim
+export CLICOLOR=1
 
 unsetopt nomatch
 
@@ -88,6 +92,7 @@ alias wget="wget -c" # continue the download
 alias cd='z'
 alias cdi='zi'
 alias cd..='z ..'
+alias ..='z ..'
 alias b='btop'
 alias emacs="emacsclient -c -a 'emacs'"
 alias g++="g++ -std=c++23 -g -o"
