@@ -99,7 +99,7 @@ alias g++="g++ -std=c++23 -g -o"
 alias ear="clear"
 alias cl="clear"
 alias config='/usr/bin/git --git-dir=/home/jmboles/dotfiles.git/ --work-tree=/home/jmboles'
-
+alias mpvhdr='ENABLE_HDR_WSI=1 mpv --vo=gpu-next --target-colorspace-hint --gpu-api=vulkan --gpu-context=waylandvk'
 ex ()
 {
   if [ -f $1 ] ; then
