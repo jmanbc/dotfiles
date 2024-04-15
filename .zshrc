@@ -31,7 +31,7 @@ ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 
 #antigen plugins
-source $HOME/.antigen/antigen.zsh
+source /usr/share/zsh/share/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
