@@ -11,7 +11,7 @@ compinit -i
 eval "$(zoxide init zsh)"
 
 export BAT_THEME="Nord"
-export TERMINAL=/usr/bin/kitty
+export TERMINAL=/usr/bin/konsole
 export TERM=xterm-256color
 path=('/home/jmboles/.config/emacs/bin' $path)
 path=('/home/jmboles/.local/bin' $path)
@@ -19,6 +19,7 @@ export PATH
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 export EDITOR=nvim
 export CLICOLOR=1
+export OPENCV_LOG_LEVEL=ERROR
 
 unsetopt nomatch
 
