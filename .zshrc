@@ -96,7 +96,7 @@ alias cd..='z ..'
 alias ..='z ..'
 alias b='btop'
 alias emacs="emacsclient -c -a 'emacs'"
-alias g++="g++ -std=c++23 -g -o"
+#alias g++="g++ -std=c++23 -g -o"
 alias ear="clear"
 alias cl="clear"
 alias config='/usr/bin/git --git-dir=/home/jmboles/dotfiles.git/ --work-tree=/home/jmboles'
