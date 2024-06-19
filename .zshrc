@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 autoload -Uz compinit
 compinit -i
 
@@ -31,35 +24,8 @@ HIST_STAMPS="%d/%m/%y %T"
 ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 
-#antigen plugins
-source /usr/share/zsh/share/antigen.zsh
-
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
-
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-antigen bundle git
-antigen bundle command-not-found
-antigen bundle thefuck
-antigen bundle sudo
-antigen bundle vi-mode
-antigen bundle history
-antigen bundle colored-man-pages
-antigen bundle fancy-ctrl-z
-antigen bundle Aloxaf/fzf-tab
-antigen bundle fzf
-antigen bundle vscode
-
-# Syntax highlighting bundle.
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-completions
-
-# Load the theme.
-antigen theme romkatv/Powerlevel10k
-
-# Tell Antigen that you're done.
-antigen apply
+source /usr/share/zsh-antidote/antidote.zsh
+antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
 
 alias cat='bat'
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq);paru -c' #Cleanup orphaned packages
@@ -193,9 +159,6 @@ bindkey -v
 bindkey '^Z' fancy-ctrl-z
 bindkey '^R' fzf-history-widget 
 bindkey '^F' autosuggest-accept
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Added by ProtonUp-Qt on 17-09-2023 00:14:03
 if [ -d "/home/jmboles/stl/prefix" ]; then export PATH="$PATH:/home/jmboles/stl/prefix"; fi
