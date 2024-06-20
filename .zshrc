@@ -3,6 +3,7 @@ autoload -U compinit; compinit
 eval "$(zoxide init zsh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/sonicboom_light.omp.json)"
+eval "$(fzf --zsh)"
 path=($HOME/.config/emacs/bin $path)
 path=($HOME/.local/bin $path)
 
@@ -19,6 +20,14 @@ HISTSIZE=50000
 SAVEHIST=50000
 HISTFILE=$HOME/.zsh_history
 HIST_STAMPS="%d/%m/%y %T"
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 
 ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
@@ -32,10 +41,11 @@ antidote bundle ohmyzsh/ohmyzsh path:plugins/sudo
 antidote bundle ohmyzsh/ohmyzsh path:plugins/history
 antidote bundle ohmyzsh/ohmyzsh path:plugins/colored-man-pages
 antidote bundle ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
+antidote bundle ohmyzsh/ohmyzsh path:plugins/archlinux
+antidote bundle ohmyzsh/ohmyzsh path:plugins/git
 antidote bundle jeffreytse/zsh-vi-mode
 antidote bundle Aloxaf/fzf-tab
 antidote bundle xPMo/zsh-ls-colors
-antidote bundle ohmyzsh/ohmyzsh path:plugins/fzf
 antidote bundle zsh-users/zsh-syntax-highlighting
 antidote bundle zsh-users/zsh-autosuggestions
 antidote bundle zsh-users/zsh-completions
@@ -77,6 +87,7 @@ alias cd..='z ..'
 alias ..='z ..'
 alias b='btop'
 alias emacs="emacsclient -c -a 'emacs'"
+
 #alias g++="g++ -std=c++23 -g -o"
 alias ear="clear"
 alias cl="clear"
@@ -86,6 +97,8 @@ alias mpvhdr='ENABLE_HDR_WSI=1 mpv --vo=gpu-next --target-colorspace-hint --gpu-
 bindkey '^Z' fancy-ctrl-z
 bindkey '^R' fzf-history-widget
 bindkey '^Xh' _complete_help
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
 
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
@@ -97,12 +110,12 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
 zstyle ':completion:*' menu no
 # preview directory's content with eza when completing cd
-zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always $realpath'
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
-# use input as query string when completing zlua
-zstyle ':fzf-tab:complete:*' fzf-bindings \
-  'ctrl-e:execute-silent({_FTB_INIT_}kwrite "$realpath")'
+# ignore case
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # Added by ProtonUp-Qt on 17-09-2023 00:14:03
 if [ -d "/home/jmboles/stl/prefix" ]; then export PATH="$PATH:/home/jmboles/stl/prefix"; fi
