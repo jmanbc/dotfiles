@@ -8,13 +8,14 @@ path=($HOME/.config/emacs/bin $path)
 path=($HOME/.local/bin $path)
 
 export BAT_THEME="Nord"
-export TERMINAL=/usr/bin/konsole
+export TERMINAL=/usr/bin/kitty
 export TERM=xterm-256color
 export PATH
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 export EDITOR=nvim
 export CLICOLOR=1
 export OPENCV_LOG_LEVEL=ERROR
+#export LESSOPEN='|~/.lessfilter %s'
 
 HISTSIZE=50000
 SAVEHIST=50000
@@ -45,7 +46,7 @@ antidote bundle ohmyzsh/ohmyzsh path:plugins/archlinux
 antidote bundle ohmyzsh/ohmyzsh path:plugins/git
 antidote bundle jeffreytse/zsh-vi-mode
 antidote bundle Aloxaf/fzf-tab
-antidote bundle xPMo/zsh-ls-colors
+#antidote bundle Freed-Wu/fzf-tab-source
 antidote bundle zsh-users/zsh-syntax-highlighting
 antidote bundle zsh-users/zsh-autosuggestions
 antidote bundle zsh-users/zsh-completions
@@ -87,10 +88,10 @@ alias cd..='z ..'
 alias ..='z ..'
 alias b='btop'
 alias emacs="emacsclient -c -a 'emacs'"
-
-#alias g++="g++ -std=c++23 -g -o"
+alias g++="g++ -std=c++23 -g -o"
 alias ear="clear"
 alias cl="clear"
+alias clera="clear"
 alias config='/usr/bin/git --git-dir=/home/jmboles/dotfiles.git/ --work-tree=/home/jmboles'
 alias mpvhdr='ENABLE_HDR_WSI=1 mpv --vo=gpu-next --target-colorspace-hint --gpu-api=vulkan --gpu-context=waylandvk'
 
@@ -102,21 +103,63 @@ bindkey '^n' history-search-forward
 
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
+
 # set descriptions format to enable group support
 # NOTE: don't use escape sequences here, fzf-tab will ignore them
 zstyle ':completion:*:descriptions' format '[%d]'
+
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
 # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
 zstyle ':completion:*' menu no
+
 # preview directory's content with eza when completing cd
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -1 --color=always $realpath'
+
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
+
 # ignore case
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
+# lessfilter
+#zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
+zstyle ':fzf-tab:complete:*:*' fzf-preview 'fzf-preview.sh ${(Q)realpath}'
+
+# give a preview of commandline arguments when completing `kill`
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview '$group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
+
+# tldr
+zstyle ':fzf-tab:complete:tldr:argument-1' fzf-preview 'tldr --color $word'
+zstyle ':fzf-tab:complete:-command-:*' fzf-preview '(out=$(tldr --color "$word") 2>/dev/null && echo $out) || (out=$(MANWIDTH=$FZF_PREVIEW_COLUMNS man "$word") 2>/dev/null && echo $out) || (out=$(which "$word") && echo $out) || echo "${(P)word}"'
+
+#git
+zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
+	'git diff $word | delta'
+zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
+	'git log --color=always $word'
+zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
+	'git help $word | bat -plman --color=always'
+zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
+	'case "$group" in
+	"commit tag") git show --color=always $word ;;
+	*) git show --color=always $word | delta ;;
+	esac'
+zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
+	'case "$group" in
+	"modified file") git diff $word | delta ;;
+	"recent commit object name") git show --color=always $word | delta ;;
+	*) git log --color=always $word ;;
+	esac'
+
+zstyle ':fzf-tab:*' fzf-min-height '3440'
+zstyle ':fzf-tab:*' fzf-pad '10'
+  
 # Added by ProtonUp-Qt on 17-09-2023 00:14:03
 if [ -d "/home/jmboles/stl/prefix" ]; then export PATH="$PATH:/home/jmboles/stl/prefix"; fi
 
