@@ -1,5 +1,4 @@
-autoload -Uz compinit
-compinit -i
+autoload -U compinit; compinit
 
 eval "$(zoxide init zsh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -25,7 +24,26 @@ ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 
 source /usr/share/zsh-antidote/antidote.zsh
-antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
+source <(antidote init)
+ZVM_INIT_MODE=sourcing
+
+antidote bundle ohmyzsh/ohmyzsh path:plugins/command-not-found
+antidote bundle ohmyzsh/ohmyzsh path:plugins/sudo
+antidote bundle ohmyzsh/ohmyzsh path:plugins/history
+antidote bundle ohmyzsh/ohmyzsh path:plugins/colored-man-pages
+antidote bundle ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
+
+antidote bundle jeffreytse/zsh-vi-mode
+
+antidote bundle zsh-users/zsh-syntax-highlighting
+antidote bundle zsh-users/zsh-autosuggestions
+antidote bundle zsh-users/zsh-completions
+
+antidote bundle Aloxaf/fzf-tab
+antidote bundle ohmyzsh/ohmyzsh path:plugins/fzf
+
+# Always starting with insert mode for each command line
+ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
 
 alias cat='bat'
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq);paru -c' #Cleanup orphaned packages
@@ -68,11 +86,8 @@ alias config='/usr/bin/git --git-dir=/home/jmboles/dotfiles.git/ --work-tree=/ho
 alias mpvhdr='ENABLE_HDR_WSI=1 mpv --vo=gpu-next --target-colorspace-hint --gpu-api=vulkan --gpu-context=waylandvk'
 
 bindkey '^Z' fancy-ctrl-z
-bindkey '^H' fzf-history-widget 
 bindkey '^F' autosuggest-accept
-
-# Added by ProtonUp-Qt on 17-09-2023 00:14:03
-if [ -d "/home/jmboles/stl/prefix" ]; then export PATH="$PATH:/home/jmboles/stl/prefix"; fi
+bindkey '^R' fzf-history-widget
 
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
@@ -87,4 +102,8 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
+
+# Added by ProtonUp-Qt on 17-09-2023 00:14:03
+if [ -d "/home/jmboles/stl/prefix" ]; then export PATH="$PATH:/home/jmboles/stl/prefix"; fi
+
 
