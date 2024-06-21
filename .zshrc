@@ -15,7 +15,6 @@ export GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 export EDITOR=nvim
 export CLICOLOR=1
 export OPENCV_LOG_LEVEL=ERROR
-#export LESSOPEN='|~/.lessfilter %s'
 
 HISTSIZE=50000
 SAVEHIST=50000
@@ -46,7 +45,7 @@ antidote bundle ohmyzsh/ohmyzsh path:plugins/archlinux
 antidote bundle ohmyzsh/ohmyzsh path:plugins/git
 antidote bundle jeffreytse/zsh-vi-mode
 antidote bundle Aloxaf/fzf-tab
-#antidote bundle Freed-Wu/fzf-tab-source
+antidote bundle Freed-Wu/fzf-tab-source
 antidote bundle zsh-users/zsh-syntax-highlighting
 antidote bundle zsh-users/zsh-autosuggestions
 antidote bundle zsh-users/zsh-completions
@@ -126,7 +125,6 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # lessfilter
-#zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
 zstyle ':fzf-tab:complete:*:*' fzf-preview 'fzf-preview.sh ${(Q)realpath}'
 
 # give a preview of commandline arguments when completing `kill`

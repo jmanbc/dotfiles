@@ -31,10 +31,6 @@ elif [ "$kind" = pdf ]; then
 elif [ "$category" = video ]; then
   ffmpegthumbnailer -i "$1" -s 1024 -o ~/.cache/cache.jpg > /dev/null 2>&1 && kitty icat --clear --transfer-mode=memory --unicode-placeholder --stdin=no --place="$dim@0x0" ~/.cache/cache.jpg | sed '$d' | sed $'$s/$/\e[m/'
 
-elif [ "$kind" = vnd.openxmlformats-officedocument.spreadsheetml.sheet ] || \
-	[ "$kind" = vnd.ms-excel ]; then
-	in2csv "$1" | xsv table | bat -ltsv --color=always
-
 else
 	lesspipe.sh "$1" | bat --color=always
 fi
