@@ -158,7 +158,7 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 	esac'
 
 zstyle ':fzf-tab:*' fzf-min-height '3440'
-zstyle ':fzf-tab:*' fzf-pad '10'
+zstyle ':fzf-tab:*' fzf-pad '2'
   
 # Added by ProtonUp-Qt on 17-09-2023 00:14:03
 if [ -d "/home/jmboles/stl/prefix" ]; then export PATH="$PATH:/home/jmboles/stl/prefix"; fi
