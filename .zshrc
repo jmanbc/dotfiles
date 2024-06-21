@@ -7,7 +7,6 @@ eval "$(fzf --zsh)"
 path=($HOME/.config/emacs/bin $path)
 path=($HOME/.local/bin $path)
 
-export BAT_THEME="Nord"
 export TERMINAL=/usr/bin/kitty
 export TERM=xterm-256color
 export PATH
@@ -15,6 +14,7 @@ export GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 export EDITOR=nvim
 export CLICOLOR=1
 export OPENCV_LOG_LEVEL=ERROR
+echo -e -n "\x1b[\x36 q"
 
 HISTSIZE=50000
 SAVEHIST=50000
@@ -60,7 +60,7 @@ alias df='df -h'
 alias e='exit'
 alias grep='grep --color=auto'
 alias jctl="journalctl -p 3 -xb" #get the error messages from journalctl
-alias killp='killprocess'
+alias killp='killprocess'find / -xtype l -print
 alias kp='killprocess'
 alias lsa='eza -lahF --color=always --icons --sort=size --group-directories-first'
 alias ls='eza -lhF --color=always --icons --sort=size --group-directories-first'
@@ -104,7 +104,6 @@ bindkey '^n' history-search-forward
 zstyle ':completion:*:git-checkout:*' sort false
 
 # set descriptions format to enable group support
-# NOTE: don't use escape sequences here, fzf-tab will ignore them
 zstyle ':completion:*:descriptions' format '[%d]'
 
 # set list-colors to enable filename colorizing
@@ -155,7 +154,7 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 	*) git log --color=always $word ;;
 	esac'
 
-zstyle ':fzf-tab:*' fzf-min-height '3440'
+zstyle ':fzf-tab:*' fzf-min-height '512'
 zstyle ':fzf-tab:*' fzf-pad '2'
   
 # Added by ProtonUp-Qt on 17-09-2023 00:14:03
