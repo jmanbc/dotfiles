@@ -1,5 +1,4 @@
 #! /usr/bin/env sh
-# this is a example of .lessfilter, you can change it
 mime=$(file -bL --mime-type "$1")
 category=${mime%%/*}
 kind=${mime##*/}
