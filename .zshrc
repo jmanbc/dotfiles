@@ -14,7 +14,6 @@ export GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 export EDITOR=nvim
 export CLICOLOR=1
 export OPENCV_LOG_LEVEL=ERROR
-echo -e -n "\x1b[\x36 q"
 
 HISTSIZE=50000
 SAVEHIST=50000
@@ -160,4 +159,8 @@ zstyle ':fzf-tab:*' fzf-pad '2'
 # Added by ProtonUp-Qt on 17-09-2023 00:14:03
 if [ -d "/home/jmboles/stl/prefix" ]; then export PATH="$PATH:/home/jmboles/stl/prefix"; fi
 
+_fix_cursor() {
+   echo -ne '\e[5 q'
+}
 
+precmd_functions+=(_fix_cursor)
