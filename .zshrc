@@ -53,7 +53,7 @@ antidote bundle zsh-users/zsh-completions
 ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
 
 alias cat='bat'
-alias cleanup='sudo pacman -Rns $(pacman -Qtdq);paru -c' #Cleanup orphaned packages
+alias cleanup='sudo pacman -Rns $(pacman -Qtdq);paru -Scd' #Cleanup orphaned packages
 alias cpu="ps axch -o cmd:15,%cpu --sort=-%cpu | head"
 alias df='df -h'
 alias e='exit'

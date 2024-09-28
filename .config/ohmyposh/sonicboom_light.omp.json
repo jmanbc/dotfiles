@@ -119,5 +119,6 @@
         "foreground": "#43CCEA",
         "template": " {{now | date \"15:04:05\"}} <#00ff0d>> "
     },
-  "version": 2
+  "version": 2,
+  "auto_upgrade": true
 }
