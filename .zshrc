@@ -11,6 +11,7 @@ export TERM=xterm-256color
 export PATH
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 export EDITOR=nvim
+export SYSTEMD_EDITOR=nvim
 export CLICOLOR=1
 export OPENCV_LOG_LEVEL=ERROR
 
@@ -163,3 +164,29 @@ _fix_cursor() {
 }
 
 precmd_functions+=(_fix_cursor)
+
+# for `zsh` append to ~/.zshrc
+command_not_found_handler() {
+  local pkg=$(pacman -Fq "$1")
+
+  if [[ -z "$pkg" ]]; then
+          printf "zsh: command not found: %s\n" "$1"
+  else 
+          printf  "\"%s\" may be found in the following package(s):\n\t%s\n" "$1" "$pkg"
+  fi
+
+  return 127
+}
+
+# for `bash` append to ~/.bashrc
+command_not_found_handle() {
+  local pkg=$(pacman -Fq "$1")
+
+  if [[ -z "$pkg" ]]; then
+          printf "bash: command not found: %s\n" "$1"
+  else 
+          printf  "\"%s\" may be found in the following package(s):\n\t%s\n" "$1" "$pkg"
+  fi
+
+  return 127
+}
