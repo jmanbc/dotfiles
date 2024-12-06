@@ -118,6 +118,6 @@
     }
   ],
   "version": 3,
-  "auto_upgrade": true,
+  "auto_upgrade": false,
   "final_space": true
 }
