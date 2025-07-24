@@ -92,7 +92,7 @@ alias cl="clear"
 alias clera="clear"
 alias config='/usr/bin/git --git-dir=/home/jmboles/dotfiles.git/ --work-tree=/home/jmboles'
 alias mpvhdr='ENABLE_HDR_WSI=1 mpv --vo=gpu-next --target-colorspace-hint --gpu-api=vulkan --gpu-context=waylandvk'
-alias opentrack='protontricks-launch --appid 359320 ~/.steam/steam/steamapps/compatdata/359320/pfx/drive_c/Program\ Files/opentrack/opentrack.exe'
+alias opentrack='protontricks-launch --appid 359320 ~/.steam/steam/steamapps/compatdata/359320/pfx/drive_c/Program\ Files/OpenTrack/opentrack.exe'
 alias edcopter='wine ~/.steam/steam/steamapps/compatdata/359320/pfx/drive_c/Program\ Files/EDCoPTER/EDCoPTER.exe'
 
 bindkey '^Z' fancy-ctrl-z
