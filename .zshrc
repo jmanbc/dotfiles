@@ -1,7 +1,6 @@
 autoload -U compinit; compinit
 
 eval "$(zoxide init zsh)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/sonicboom_light.omp.json)"
 eval "$(fzf --zsh)"
 path=($HOME/.local/bin $path)
